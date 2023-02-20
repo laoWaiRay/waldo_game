@@ -1,32 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import './index.scss'
+import './scss/styles.scss'
+import styles from './scss/components/App.module.scss'
+import classNames from 'classnames'
+import { firebaseApp, storage, firestore } from './firebase'
+import Navbar from './components/Navbar'
+import Mobile from './components/Mobile'
+import Desktop from './components/Desktop'
+import { useEffect, useState } from 'react'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [isMobile, setIsMobile] = useState(false);
+  // console.log(window.screen.orientation.type)
+  useEffect(() => {
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  }, [])
+  
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more!
-      </p>
+    <div className={classNames(styles.app)}>
+      <Navbar />
+      {isMobile 
+        ? <Mobile />
+        : <Desktop />
+      }
     </div>
   )
 }

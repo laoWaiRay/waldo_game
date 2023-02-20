@@ -1,0 +1,18 @@
+@use '/src/scss/abstracts/variables' as *;
+// font-family: 'Open Sans', sans-serif;
+// font-family: 'Outfit', sans-serif;
+
+h1 {
+  font-size: $font4Xl;
+  font-family: 'PT Serif', serif;
+}
+
+h2 {
+  font-size: $font3Xl;
+  font-family: 'PT Serif', serif;
+  margin-bottom: .5rem;
+}
+
+.italics {
+  font-style: italic;
+}

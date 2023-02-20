@@ -1,0 +1,9 @@
+@use '../abstracts/variables' as *;
+
+h1 {
+  color: $colorPrimary;
+}
+
+.navbar {
+  border-bottom: 1px solid rgba($colorPrimary, 0.4);
+}

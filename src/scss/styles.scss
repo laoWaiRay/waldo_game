@@ -1,0 +1,17 @@
+@charset 'utf-8';
+@use '/src/scss/abstracts/variables' as *;
+@use '/src/scss/base/typography' as *;
+@use '/src/scss/base/utility' as *;
+
+body {
+  background: $bgDarkest;
+  color: $colorPrimary;
+  font-family: 'Open Sans', sans-serif;
+  min-height: 100vh;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+p {
+  margin-bottom: .5rem;
+}

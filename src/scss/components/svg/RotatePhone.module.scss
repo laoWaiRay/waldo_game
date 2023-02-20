@@ -1,0 +1,7 @@
+@use '/src/scss/abstracts/variables' as *;
+
+.rotatePhone { 
+  height: 100%;
+  width: 100%;
+  fill: rgba($colorPrimary, 0.5);
+}
