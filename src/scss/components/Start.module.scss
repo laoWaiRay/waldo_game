@@ -1,0 +1,33 @@
+@use '/src/scss/abstracts/variables' as *;
+
+.start {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  font-size: $font5Xl;
+  letter-spacing: 1px;
+  color: $colorPrimary;
+  background-color: $bgDarker;
+  padding: 1rem 2.5rem;
+  border: 0;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+// .fullscreen {
+//   background: transparent;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   padding: 0;
+//   border: 0;
+//   position: absolute;
+//   bottom: 1rem;
+//   right: 1rem;
+// }

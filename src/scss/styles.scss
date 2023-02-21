@@ -3,11 +3,16 @@
 @use '/src/scss/base/typography' as *;
 @use '/src/scss/base/utility' as *;
 
+// html {
+//   overflow: hidden;
+// }
+
 body {
   background: $bgDarkest;
   color: $colorPrimary;
   font-family: 'Open Sans', sans-serif;
   min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
   font-size: 1.2rem;
   line-height: 1.5;
 }

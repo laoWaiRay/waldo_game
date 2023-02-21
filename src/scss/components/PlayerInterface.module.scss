@@ -1,0 +1,27 @@
+.bar {
+  padding: 0 1rem;
+  height: 2.5rem;
+  max-width: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bar > * {
+  flex-basis: 33%;
+  display: block;
+  text-align: center;
+}
+
+.bar > *:first-child {
+  justify-content: flex-start;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: start;
+}
+
+.bar > *:last-child {
+  text-align: end;
+}

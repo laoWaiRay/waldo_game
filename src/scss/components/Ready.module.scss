@@ -1,0 +1,14 @@
+@use '/src/scss/abstracts/variables' as *;
+
+// .ready {
+//   height: calc(100vh - 2.5rem);
+//   height: calc((var(--vh, 1vh) * 100) - 2.5rem);
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+.countdown {
+  text-align: center;
+  font-size: $font6Xl;
+}

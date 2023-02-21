@@ -5,7 +5,7 @@ import RotatePhone from './svg/RotatePhone'
 
 export default function Greeting() {
   return (
-    <header>
+    <header className={classNames('padding')}>
       <h2 className='italics textCenter'> Rules </h2>
       <p>
         Welcome to <span className='italics'>Where's Waldo?</span>, {' '}
@@ -22,7 +22,7 @@ export default function Greeting() {
         In order to begin the game, please turn your phone to landscape 
         mode.
       </p> */}
-      <div className='container'>
+      <div className='padding container'>
         <RotatePhone />
       </div>
     </header>
