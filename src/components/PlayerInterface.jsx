@@ -3,13 +3,12 @@ import styles from '../scss/components/PlayerInterface.module.scss'
 import useCountdown from '../hooks/useCountdown'
 import { useEffect, useState } from "react";
 
-export default function PlayerInterface() {
+export default function PlayerInterface({gameData, score}) {
   const [pauseCountdown, startCountdown, time, resetCountdown] = useCountdown(60);
-  const [score, setScore] = useState(0);
 
   return (
     <div className={classNames(styles.bar)}>
-      <span>Long long long long long long name</span>
+      <span>{gameData?.name || ""}</span>
       <span>
         {time}
       </span>

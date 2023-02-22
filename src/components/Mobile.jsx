@@ -20,9 +20,9 @@ export default function Mobile() {
     });
   }, [])
 
-  useEffect(() => {
-    console.log(isLandscape);
-  }, [isLandscape])
+  // useEffect(() => {
+  //   console.log(isLandscape);
+  // }, [isLandscape])
 
   return (
     <>
