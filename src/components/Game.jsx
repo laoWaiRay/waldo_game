@@ -27,6 +27,7 @@ export default function Game({isLandscape}) {
     switch (gameState) {
       case 'Ready':     return <Ready setGameState={setGameState} 
                                       isLandscape={isLandscape}
+                                      setIsStarted={setIsStarted}
                                 />;
       case 'Play':      return <Play setGameState={setGameState} 
                                      gameData={gameData} 

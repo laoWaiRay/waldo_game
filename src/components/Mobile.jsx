@@ -20,8 +20,11 @@ export default function Mobile() {
   }, [])
 
   // useEffect(() => {
-  //   // When orientation or window size changes, also change CSS custom --vh variable
+  //   // When orientation changes, also change CSS custom --vh variable.
+  //   // Need to set timeout to allow browser to calculate the new window height
   //   setTimeout(() => {
+  //     console.log(window.screen.availHeight)
+  //     console.log(window.innerHeight)
   //     const vh = window.innerHeight * 0.01;
   //     console.log('changing screen size to', vh)
   //     document.documentElement.style.setProperty('--vh', `${vh}px`);
