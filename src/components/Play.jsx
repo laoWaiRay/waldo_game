@@ -1,12 +1,25 @@
 import classNames from "classnames"
+import { useEffect } from "react";
 import styles from '/src/scss/components/Play.module.scss'
 
-export default function Play({setGameState, gameData, setScore, getGameData}) {
+export default function Play({setGameState, gameData, setScore, getGameData, 
+                              startCountdown, pauseCountdown, resetCountdown,
+                              time, setTotalTimeElapsed
+                            }) {
+  useEffect(() => {
+    startCountdown();
+    return pauseCountdown;
+  }, [])
+
   const isValidSolution = (playerX, playerY, solutionX, solutionY) => {
     const dx = Math.abs(playerX - solutionX);
     const dy = Math.abs(playerY - solutionY);
-    console.log(dx, dy)
-    if (dx < 4 && dy < 4)
+    // console.log(dx, dy)
+    resetCountdown();
+    setTotalTimeElapsed((prev) => prev + (60 - time))
+
+    // if (dx < 4 && dy < 4)
+    if (true) // testing only
       return true;
     else
       return false;
@@ -16,7 +29,6 @@ export default function Play({setGameState, gameData, setScore, getGameData}) {
     const img = e.target;
     const ratio = img.naturalWidth / img.naturalHeight;
     const width = img.height * ratio;
-    // console.log("computed width", width);
     const rect = e.target.getBoundingClientRect();
     const difference = rect.width - width;
     let x = (e.clientX - rect.left);
@@ -25,7 +37,7 @@ export default function Play({setGameState, gameData, setScore, getGameData}) {
     x *= 100;
     let y = (e.clientY - rect.top) / rect.height;
     y *= 100;
-    // console.log(x, y);
+
     if (isValidSolution(x, y, gameData.x, gameData.y)) {
       const audio = new Audio("https://firebasestorage.googleapis.com/v0/b/waldogame-dda5b.appspot.com/o/sound_effects%2Fcorrect_beep.mp3?alt=media&token=714a561d-91ed-43dd-9fa9-b2b5f1fad357");
       audio.play();
