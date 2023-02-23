@@ -14,6 +14,7 @@ const num_photos = 8;
 export default function Game({isLandscape}) {
   const [pauseCountdown, startCountdown, time, resetCountdown] = useCountdown(60);
 
+  const [isStarted, setIsStarted] = useState(false);
   const [gameState, setGameState] = useState('Ready');
   const [gameData, setGameData] = useState(null);
   const [puzzles, setPuzzles] = useState(new Array(num_photos).fill(0).map((elt, index) => index + 1));
@@ -24,7 +25,9 @@ export default function Game({isLandscape}) {
 
   const getGameState = () => {
     switch (gameState) {
-      case 'Ready':     return <Ready setGameState={setGameState} />;
+      case 'Ready':     return <Ready setGameState={setGameState} 
+                                      isLandscape={isLandscape}
+                                />;
       case 'Play':      return <Play setGameState={setGameState} 
                                      gameData={gameData} 
                                      setScore={setScore} 
@@ -34,6 +37,7 @@ export default function Game({isLandscape}) {
                                      resetCountdown={resetCountdown}
                                      time={time}
                                      setTotalTimeElapsed={setTotalTimeElapsed}
+                                     setIsStarted={setIsStarted}
                                 />;
       case 'GameOver':  return <GameOver setGameState={setGameState}
                                          totalTimeElapsed={totalTimeElapsed}  
@@ -100,14 +104,24 @@ export default function Game({isLandscape}) {
     }
   }, [time])
 
+  useEffect(() => {
+    if (!isStarted)
+      return;
+
+    if (isLandscape)
+      startCountdown()
+    else
+      pauseCountdown()
+  }, [isLandscape, isStarted])
+
   return (
     <div className='height100vh'>
-      {!isLandscape && <Pause />}
       <PlayerInterface 
         gameData={gameData}
         score={score}
         time={time}
       />
+      {!isLandscape && <Pause />}
       {
         getGameState()
       }

@@ -2,12 +2,15 @@ import classNames from "classnames"
 import { useEffect } from "react";
 import styles from '/src/scss/components/Play.module.scss'
 
+const audio = new Audio("https://firebasestorage.googleapis.com/v0/b/waldogame-dda5b.appspot.com/o/sound_effects%2Fcorrect_beep.mp3?alt=media&token=714a561d-91ed-43dd-9fa9-b2b5f1fad357");
+
 export default function Play({setGameState, gameData, setScore, getGameData, 
                               startCountdown, pauseCountdown, resetCountdown,
-                              time, setTotalTimeElapsed
+                              time, setTotalTimeElapsed, setIsStarted
                             }) {
   useEffect(() => {
     startCountdown();
+    setIsStarted(true);
     return pauseCountdown;
   }, [])
 
@@ -39,7 +42,6 @@ export default function Play({setGameState, gameData, setScore, getGameData,
     y *= 100;
 
     if (isValidSolution(x, y, gameData.x, gameData.y)) {
-      const audio = new Audio("https://firebasestorage.googleapis.com/v0/b/waldogame-dda5b.appspot.com/o/sound_effects%2Fcorrect_beep.mp3?alt=media&token=714a561d-91ed-43dd-9fa9-b2b5f1fad357");
       audio.play();
       setGameState('Ready');
       setScore((prev) => prev + 1);

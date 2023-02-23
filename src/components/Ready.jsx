@@ -1,14 +1,28 @@
 import classNames from "classnames"
 import styles from '/src/scss/components/Ready.module.scss'
 import useCountdown from '/src/hooks/useCountdown.js'
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-export default function Ready({setGameState}) {
+export default function Ready({setGameState, isLandscape}) {
   const [pauseCountdown, startCountdown, time, resetCountdown] = useCountdown(3);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
-    startCountdown()
+    startCountdown();
   }, [])
+
+  useEffect(() => {
+    // Pause the timer if the phone is not in landscape mode
+    if (!isLandscape) {
+      setIsPaused(true);
+      pauseCountdown();
+    }
+    else if (isPaused)
+    {
+      setIsPaused(false);
+      startCountdown();
+    }
+  }, [isLandscape])
 
   useEffect(() => {
     if (time <= 0) {

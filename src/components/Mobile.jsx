@@ -10,18 +10,22 @@ export default function Mobile() {
   const [isLandscape, setIsLandscape] = useState(false);
 
   useEffect(() => {
-    const landscape = window.matchMedia("(orientation: landscape)");
-    setIsLandscape(landscape.matches);
-    landscape.addEventListener("change", (event) => {
+    const handleChangeOrientation = (event) => {
       setIsLandscape(event.matches);
-      // When orientation changes, also change CSS custom vh variable
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    });
+    }
+
+    const landscape = window.matchMedia("(orientation: landscape)");    
+    landscape.addEventListener("change", handleChangeOrientation);
+    return () => removeEventListener('change', handleChangeOrientation);
   }, [])
 
   // useEffect(() => {
-  //   console.log(isLandscape);
+  //   // When orientation or window size changes, also change CSS custom --vh variable
+  //   setTimeout(() => {
+  //     const vh = window.innerHeight * 0.01;
+  //     console.log('changing screen size to', vh)
+  //     document.documentElement.style.setProperty('--vh', `${vh}px`);
+  //   }, 200);
   // }, [isLandscape])
 
   return (
