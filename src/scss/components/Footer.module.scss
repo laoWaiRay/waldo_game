@@ -1,0 +1,22 @@
+@use '/src/scss/abstracts/variables' as *;
+
+.footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.logo {
+  height: $font3Xl;
+  margin: 0 0  0 .5rem;
+  vertical-align: middle;
+}
+
+.muted {
+  opacity: 66%;
+}
+
+.divider {
+  margin: 0 .5rem;
+}

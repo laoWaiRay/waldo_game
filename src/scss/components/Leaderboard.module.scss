@@ -1,0 +1,43 @@
+@use '/src/scss//abstracts/variables' as *;
+
+.leaderboard {
+  align-self: self-start;
+  justify-self: center;
+  width: 100%;
+}
+
+.heading {
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.scoresGrid {
+  display: grid;
+  border: 3px solid black;
+  padding: .25rem 1rem;
+  overflow: auto;
+  grid-template-columns: 1.5fr repeat(2, 1fr);
+  grid-template-rows: auto;
+  height: 50vh;
+  // min-height: 300px;
+  margin-top: 1rem;
+}
+
+.textOverflowEllipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 90%;
+}
+
+.scoresHeading {
+  font-weight: 600;
+}
+
+
+@media screen and (min-width: 548px) {
+  .scoresGrid {
+    margin: .25rem 2rem;
+    max-height: 45vh;
+  }
+}

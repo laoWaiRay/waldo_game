@@ -1,16 +1,17 @@
 import React from 'react'
 import classNames from 'classnames'
-import styles from '../scss/components/Greeting.module.scss'
 import RotatePhone from './svg/RotatePhone'
+import Footer from './Footer'
 
 export default function Greeting() {
   return (
+    <div className='height100Mobile flexCol'>
     <header className={classNames('padding')}>
       <h2 className='italics textCenter'> Rules </h2>
       <p>
         Welcome to <span className='italics'>Where's Waldo?</span>, {' '}
         a photo-tagging game where you race to find {' '}
-        <img src='/src/images/waldo.png' alt='Waldo' className={classNames(styles.waldo)} /> {' '}
+        <img src='/src/images/waldo.png' alt='Waldo' className={classNames('waldo')} /> {' '}
         before the time 
         runs out.
       </p>
@@ -26,5 +27,7 @@ export default function Greeting() {
         <RotatePhone />
       </div>
     </header>
+    <Footer />
+    </div>
   )
 }

@@ -12,7 +12,7 @@ import useCountdown from '../hooks/useCountdown'
 const num_photos = 8;
 
 export default function Game({isLandscape}) {
-  const [pauseCountdown, startCountdown, time, resetCountdown] = useCountdown(60);
+  const [pauseCountdown, startCountdown, time, resetCountdown] = useCountdown(1);
 
   const [isStarted, setIsStarted] = useState(false);
   const [gameState, setGameState] = useState('Ready');
@@ -44,13 +44,15 @@ export default function Game({isLandscape}) {
                                          totalTimeElapsed={totalTimeElapsed}  
                                          resetGameData={resetGameData}
                                          score={score}
+                                         isLandscape={isLandscape}
                                 />
-      case 'Pause':     return <Pause />
+      // case 'Pause':     return <Pause />
     }
   }
   
   const getGameData = async () => {
     if (puzzles.length === 0) {
+      setIsStarted(false);
       setGameState('GameOver');
       return;
     }
@@ -101,6 +103,7 @@ export default function Game({isLandscape}) {
     if (time <= 0)
     {
       setTotalTimeElapsed((prev) => prev + (60 - time))
+      setIsStarted(false);
       setGameState('GameOver');
     }
   }, [time])
@@ -122,7 +125,7 @@ export default function Game({isLandscape}) {
         score={score}
         time={time}
       />
-      {!isLandscape && <Pause />}
+      {!isLandscape && gameState !== 'GameOver' &&  <Pause />}
       {
         getGameState()
       }

@@ -2,15 +2,12 @@ import './index.scss'
 import './scss/styles.scss'
 import styles from './scss/components/App.module.scss'
 import classNames from 'classnames'
-import { firebaseApp, storage, firestore } from './firebase'
-import Navbar from './components/Navbar'
 import Mobile from './components/Mobile'
 import Desktop from './components/Desktop'
 import { useEffect, useState } from 'react'
 
 function App() {
   const [isMobile, setIsMobile] = useState(false);
-  // console.log(window.screen.orientation.type)
   
   useEffect(() => {
     const calculateVH = () => {
@@ -23,7 +20,7 @@ function App() {
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
       setIsMobile(true);
       // Assign CSS custom variable for mobile styling of body's min-height
-      window.addEventListener('resize', calculateVH);
+      calculateVH();
       landscape.addEventListener('change', () => {
         // setTimeout fixes a bug on chrome where it takes time to calculate window.innerHeight on phone rotation
         setTimeout(() => {
@@ -35,7 +32,6 @@ function App() {
     }
 
     return () => {
-      window.removeEventListener('resize', calculateVH);
       landscape.removeEventListener('change', calculateVH);
     };
   }, [])

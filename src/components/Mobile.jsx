@@ -14,7 +14,11 @@ export default function Mobile() {
       setIsLandscape(event.matches);
     }
 
-    const landscape = window.matchMedia("(orientation: landscape)");    
+    const landscape = window.matchMedia("(orientation: landscape)");   
+    if (landscape.matches)
+      setIsLandscape(true); 
+    else
+      setIsLandscape(false);
     landscape.addEventListener("change", handleChangeOrientation);
     return () => removeEventListener('change', handleChangeOrientation);
   }, [])

@@ -2,6 +2,7 @@
 @use '/src/scss/abstracts/variables' as *;
 @use '/src/scss/base/typography' as *;
 @use '/src/scss/base/utility' as *;
+@use '/src/scss/base/buttons' as *;
 
 // html {
 //   overflow: hidden;
@@ -13,7 +14,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   min-height: 100vh;
   min-height: calc(var(--vh, 1vh) * 100);
-  font-size: 1.2rem;
+  font-size: $fontBase;
   line-height: 1.5;
 }
 
@@ -21,6 +22,27 @@ p {
   margin-bottom: .5rem;
 }
 
-* {
-  transition: height 250ms ease;
+a {
+  text-decoration: none;
+
+  &:visited {
+    color: rgb(139, 118, 118);
+  }
+}
+
+.waldo {
+  height: 2rem;
+  aspect-ratio: 1;
+  vertical-align: bottom;
+}
+
+.slideIn {
+  top: 0 !important;
+}
+
+@media screen and (min-height: 400px) {
+  p {
+    margin-bottom: 0;
+    margin: .5rem 0;
+  }
 }

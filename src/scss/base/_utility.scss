@@ -1,3 +1,5 @@
+@use '/src/scss/abstracts/variables' as *;
+
 .padding {
   padding: 0.75rem;
 }
@@ -24,10 +26,29 @@
   height: calc((var(--vh, 1vh) * 100));
 }
 
+.minHeight100vh {
+  min-height: 100vh;
+}
+
+.height100Mobile {
+  height: calc(100vh - 5rem);
+}
+
 .fullscreen {
-  height: calc(100vh - 2.5rem);
-  height: calc((var(--vh, 1vh) * 100) - 2.5rem);
+  height: calc(100vh - $navbarHeight);
+  height: calc((var(--vh, 1vh) * 100) - $navbarHeight);
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.flexCol {
+  display: flex;
+  flex-direction: column;
+}
+
+@media only screen and (min-width: 768px) {
+  .padding {
+    padding: .75rem 1.25rem;
+  }
 }

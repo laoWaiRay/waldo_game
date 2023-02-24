@@ -1,0 +1,47 @@
+@use '/src/scss/abstracts/variables' as *;
+
+.register {
+  height: 2.6rem;
+  width: 100%;
+  background: rgb(24,38,133);
+  background: linear-gradient(100deg, rgb(6, 12, 54) 1%, rgb(22, 21, 20) 100%);
+  position: absolute;
+  top: calc(-2.6rem - 1px);
+  transition: all 500ms ease;
+  left: 0;
+}
+
+.register::after {
+  content: '';
+  z-index: -1;
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #4158D0;
+  background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #aa6f00 100%);
+  padding-bottom: 3px;
+  bottom: -1px;
+  left: 0;
+}
+
+.formContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // padding: 0 1rem;
+  gap: .5rem;
+}
+
+.pill {
+  border: 0;
+  padding: 0 1rem;
+  font-size: $fontBase;
+  font-family: 'Open Sans', sans-serif;
+  color: #000;
+  width: clamp(100px, 40vw, 15rem);
+  background-color: rgba($colorPrimary, 90%);
+  border-radius: 500px; // pill shape
+}
