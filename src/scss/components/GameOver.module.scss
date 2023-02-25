@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  padding-top: 1rem;
+  padding-top: .75rem;
 }
 
 .gameOverGrid {
@@ -26,6 +26,30 @@
   padding: .5rem 1rem;
   font-size: $fontXl;
   letter-spacing: 1px;
+}
+
+.active {
+  border: 1px solid $colorAccentDark;
+  color: $colorAccentBase
+}
+
+.btnSaved {
+  margin: .5rem;
+  background: transparent;
+  border: 1px solid #109f10;
+  padding: .5rem 1rem;
+  font-size: $fontXl;
+  letter-spacing: 1px;
+  color: #09aa09;
+}
+
+.btnDisabled {
+  color: #444;
+  border: 1px solid #555;
+}
+
+.error {
+  color: darkred;
 }
 
 @media screen and (min-width: 768px) {
