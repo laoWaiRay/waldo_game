@@ -1,5 +1,7 @@
 import classNames from 'classnames'
 import styles from '/src/scss/components/Footer.module.scss'
+import odinLogoURL from "/odin-icon.svg"
+import githubLogoURL from "/github-icon.svg"
 
 export default function Footer() {
   return (
@@ -7,7 +9,7 @@ export default function Footer() {
       <a href='https://theodinproject.com'>
         Odin Project
         <img 
-          src="/odin-icon.svg" 
+          src={odinLogoURL}
           alt="odin project logo" 
           className={classNames(styles.logo)}
         />
@@ -16,7 +18,7 @@ export default function Footer() {
       <a href="https://github.com/">
         LaoWaiRay
         <img
-          src="/github-icon.svg" 
+          src={githubLogoURL}
           alt="github logo" 
           className={classNames(styles.logo, styles.muted)}
         />
