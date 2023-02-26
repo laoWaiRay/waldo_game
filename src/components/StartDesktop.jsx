@@ -13,6 +13,7 @@ import {
   getCountFromServer
 } from 'firebase/firestore'
 import Leaderboard from './Leaderboard'
+import waldoIconURL from '/src/assets/waldo.png'
 
 
 let collectionLength;
@@ -51,7 +52,7 @@ export default function StartDesktop({setIsGameStart}) {
           <p>
             Welcome to <span className='italics'>Where's Waldo?</span>, {' '}
             a photo-tagging game where you race to find {' '}
-            <img src='/src/images/waldo.png' alt='Waldo' className={classNames('waldo')} /> {' '}
+            <img src={waldoIconURL} alt='Waldo' className={classNames('waldo')} /> {' '}
             before the time 
             runs out.
           </p>
