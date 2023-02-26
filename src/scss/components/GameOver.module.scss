@@ -1,5 +1,10 @@
 @use '/src/scss//abstracts/variables' as *;
 
+.gameOverContainer {
+  height: calc(100vh - 2.5rem);
+  height: calc(var(--vh, 1vh) * 100 - 2.5rem);
+}
+
 .display {
   display: flex;
   flex-direction: column;
@@ -11,8 +16,9 @@
 
 .gameOverGrid {
   z-index: 20;
-  height: calc(100vh - 2.5rem);
-  height: calc(var(--vh, 1vh) * 100 - 2.5rem);
+  width: 45rem;
+  // height: calc(100vh - 2.5rem);
+  // height: calc(var(--vh, 1vh) * 100 - 2.5rem);
   display: grid;
   grid-template-rows: minmax(min-content, max-content) 1fr;
   align-items: center;

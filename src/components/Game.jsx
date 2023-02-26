@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import { useEffect, useRef, useState } from 'react'
 import GameOver from './GameOver'
 import Play from './Play'
@@ -6,7 +5,16 @@ import PlayerInterface from './PlayerInterface'
 import Ready from './Ready'
 import Pause from './Pause'
 import { firestore } from '/src/firebase.js'
-import { collection, getDocs, query, where } from 'firebase/firestore'
+import {
+  query,
+  where,
+  orderBy,
+  collection,
+  onSnapshot,
+  getDocs,
+  limit,
+  startAfter
+} from 'firebase/firestore'
 import useCountdown from '../hooks/useCountdown'
 
 const num_photos = 8;
@@ -22,6 +30,7 @@ export default function Game({isLandscape}) {
   const [totalTimeElapsed, setTotalTimeElapsed] = useState(0);
   const initialRender = useRef(true);     // This fixes the weird double render bug in strict mode
   const isResetCalled = useRef(false);
+  const [leaderboardData, setLeaderboardData] = useState([]);
 
   const getGameState = () => {
     switch (gameState) {
@@ -45,10 +54,25 @@ export default function Game({isLandscape}) {
                                          resetGameData={resetGameData}
                                          score={score}
                                          isLandscape={isLandscape}
+                                         leaderboardData={leaderboardData}
+                                         setLeaderboardData={setLeaderboardData}
                                 />
-      // case 'Pause':     return <Pause />
     }
   }
+
+  // Populate leaderboard data from database
+  useEffect(() => {
+    const q = query(collection(firestore, 'scores'), limit(5), orderBy('score', 'desc'), orderBy('time'));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const newLeaderboardData = [];
+      querySnapshot.forEach((doc) => {
+        newLeaderboardData.push(doc);
+      });
+      setLeaderboardData(newLeaderboardData);
+    })
+
+    return unsubscribe;
+  }, [])
   
   const getGameData = async () => {
     if (puzzles.length === 0) {

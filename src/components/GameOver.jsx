@@ -8,27 +8,37 @@ import { firestore } from '/src/firebase.js'
 import {
   collection,
   addDoc,
+  getCountFromServer
 } from 'firebase/firestore';
 import BadWordsFilter from "bad-words";
 
-export default function GameOver({setGameState, totalTimeElapsed, resetGameData, score, isLandscape}) {
+let initialCollectionLength;
+getCountFromServer(collection(firestore, 'scores'))
+                  .then((snapshot) => {
+                    initialCollectionLength = snapshot.data().count;
+                  })
+
+export default function GameOver({setGameState, totalTimeElapsed, resetGameData, 
+                                  score, isLandscape, leaderboardData, setLeaderboardData
+                                }) {
   const [isFormShown, setIsFormShown] = useState(false);
   const [name, setName] = useState('');
   const [isSaved, setIsSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [collectionLength, setCollectionLength] = useState(initialCollectionLength);
   const registerRef = useRef(null);
   const inputRef = useRef(null);
   const saveBtnRef = useRef(null);
 
   const saveUserScore = async () => {
     const filter = new BadWordsFilter;
-    const docRef = await addDoc(collection(firestore, 'scores'), {
+    await addDoc(collection(firestore, 'scores'), {
       name: filter.clean(name),
       score: score,
       time: totalTimeElapsed
     })
-    console.log('Saved to db: ', docRef);
+    setCollectionLength((prev) => prev + 1);
   }
 
   useEffect(() => {
@@ -82,60 +92,66 @@ export default function GameOver({setGameState, totalTimeElapsed, resetGameData,
   }
 
   return (
-    <div className={classNames(styles.gameOverGrid)}>
-      <div className={classNames(styles.display)}>
-        {(error && isFormShown)
-          ? <div className={classNames(styles.error)}>{error}</div>
-          : <div>
-              You solved {score} {score === 1 ? 'puzzle' : 'puzzles'} in {totalTimeElapsed} seconds!
-            </div>
-        }
-        <div>
-          <button 
-            onClick={handleClickTryAgain}
-            className={classNames(styles.btn)}
-          >
-            Try Again
-          </button>
-          {!isSaved
-            ? <button 
-                onClick={handleClickSave}
-                className={classNames(
-                            styles.btn,
-                            isFormShown && styles.active,
-                            {'pulse': isFormShown && !error},
-                            error && isFormShown && styles.btnDisabled
-                          )}
-                ref={saveBtnRef}
-              >
-                Save Score
-              </button>
-            : <button
-                className={classNames(styles.btnSaved)}
-                disabled
-              >
-                Saved!
-              </button>
+    <div className={classNames('fullscreen')}>
+      <div className={classNames(styles.gameOverGrid)}>
+        <div className={classNames(styles.display)}>
+          {(error && isFormShown)
+            ? <div className={classNames(styles.error)}>{error}</div>
+            : <div>
+                You solved {score} {score === 1 ? 'puzzle' : 'puzzles'} in {totalTimeElapsed} seconds!
+              </div>
           }
-          
+          <div>
+            <button 
+              onClick={handleClickTryAgain}
+              className={classNames(styles.btn)}
+            >
+              Try Again
+            </button>
+            {!isSaved
+              ? <button 
+                  onClick={handleClickSave}
+                  className={classNames(
+                              styles.btn,
+                              isFormShown && styles.active,
+                              {'pulse': isFormShown && !error},
+                              error && isFormShown && styles.btnDisabled
+                            )}
+                  ref={saveBtnRef}
+                >
+                  Save Score
+                </button>
+              : <button
+                  className={classNames(styles.btnSaved)}
+                  disabled
+                >
+                  Saved!
+                </button>
+            }
+            
+          </div>
         </div>
+        <Leaderboard 
+          leaderboardData={leaderboardData}
+          setLeaderboardData={setLeaderboardData}
+          collectionLength={collectionLength}
+        />
+        {!isLandscape &&
+          <Footer />
+        }
+        <Register 
+          isFormShown={isFormShown}
+          name={name}
+          setName={setName}
+          isSaved={isSaved}
+          setIsSaved={setIsSaved}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          inputRef={inputRef}
+          registerRef={registerRef}
+          handleClickSave={handleClickSave}
+        />
       </div>
-      <Leaderboard />
-      {!isLandscape &&
-        <Footer />
-      }
-      <Register 
-        isFormShown={isFormShown}
-        name={name}
-        setName={setName}
-        isSaved={isSaved}
-        setIsSaved={setIsSaved}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        inputRef={inputRef}
-        registerRef={registerRef}
-        handleClickSave={handleClickSave}
-      />
     </div>
   )
 }

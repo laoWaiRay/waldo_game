@@ -21,6 +21,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage';
+import { faker } from '@faker-js/faker'
 
 const config = {
   apiKey: "AIzaSyBaDxselkvqTQ5OlBj26Yjl-fSr6L1U9JY",
@@ -43,6 +44,18 @@ function getFirebaseConfig() {
 const app = initializeApp(getFirebaseConfig());
 const db = getFirestore();
 const storage = getStorage();
+
+const createRandomUser = () => {
+  return {
+    name: faker.name.firstName(),
+    score: faker.datatype.number(8),
+    time: faker.datatype.number(180)
+  }
+}
+
+for (let i = 0; i < 10; i++) {
+  addDoc(collection(db, 'scores'), createRandomUser());
+}
 
 // const mp3Ref = ref(storage, 'sound_effects/correct_beep.mp3');
 // getDownloadURL(mp3Ref).then((url) => {

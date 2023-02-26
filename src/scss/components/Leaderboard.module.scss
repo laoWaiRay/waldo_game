@@ -9,6 +9,21 @@
 .heading {
   letter-spacing: 1px;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .25rem;
+}
+
+.btnDisabled {
+  opacity: 60%;
 }
 
 .scoresGrid {
