@@ -1,10 +1,48 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import classNames from 'classnames'
 import styles from '/src/scss/components/StartDesktop.module.scss'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import { firestore } from '/src/firebase.js'
+import {
+  query,
+  orderBy,
+  collection,
+  onSnapshot,
+  limit,
+  getCountFromServer
+} from 'firebase/firestore'
+import Leaderboard from './Leaderboard'
+
+
+let collectionLength;
+getCountFromServer(collection(firestore, 'scores'))
+                  .then((snapshot) => {
+                    collectionLength = snapshot.data().count;
+                  })
 
 export default function StartDesktop({setIsGameStart}) {
+  const [leaderboardData, setLeaderboardData] = useState([]);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
+
+   // Populate leaderboard data from database
+   useEffect(() => {
+    const q = query(collection(firestore, 'scores'), limit(5), orderBy('score', 'desc'), orderBy('time'));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const newLeaderboardData = [];
+      querySnapshot.forEach((doc) => {
+        newLeaderboardData.push(doc);
+      });
+      setLeaderboardData(newLeaderboardData);
+    })
+
+    return unsubscribe;
+  }, [])
+
+  const handleClickLeaderboard = () => {
+    setShowLeaderboard((prev) => !prev)
+  }
+
   return (
     <>
       <Navbar />
@@ -32,8 +70,23 @@ export default function StartDesktop({setIsGameStart}) {
           >
             Start
           </button>
-          <button className={styles.btnLeaderboard}>Leaderboard</button>
+          <button 
+            className={styles.btnLeaderboard}
+            onClick={handleClickLeaderboard}
+          >
+            Leaderboard
+          </button>
         </section>
+        <div 
+          hidden={!showLeaderboard}
+          className={classNames(styles.leaderboard)}
+        >
+          <Leaderboard 
+            leaderboardData={leaderboardData}
+            setLeaderboardData={setLeaderboardData}
+            collectionLength={collectionLength}
+          />
+        </div>
       </header>
       <Footer />
     </>

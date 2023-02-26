@@ -77,6 +77,31 @@ export default function Leaderboard({leaderboardData, setLeaderboardData, collec
       setNextDisabled(false);
   }, [page])
 
+  const getScoreElements = () => {
+    const scoreElements = leaderboardData.map((userData) => {
+                            return <Fragment key={userData.id}>
+                                    <span 
+                                      className={classNames(styles.textOverflowEllipsis)}
+                                    >
+                                      {userData.data().name}
+                                    </span>
+                                    <span>{userData.data().score}</span>
+                                    <span>{userData.data().time}</span>
+                                  </Fragment>
+                          });
+    let fragmentId = Date.now();
+    while (scoreElements.length < 5) {
+      scoreElements.push(
+        <Fragment key={fragmentId++}>
+          <span>&nbsp;</span>
+          <span>&nbsp;</span>
+          <span>&nbsp;</span>
+        </Fragment>
+      )
+    }
+    return scoreElements
+  }
+
   return (
     <section className={classNames(styles.leaderboard)}>
       <div className={classNames(styles.heading)}>
@@ -87,7 +112,7 @@ export default function Leaderboard({leaderboardData, setLeaderboardData, collec
             onClick={getPreviousPage}
             className={prevDisabled ? styles.btnDisabled : ''}
           />
-          {page}
+          {page} / {Math.ceil(collectionLength / PAGINATION_LIMIT)}
           <ArrowCircleRight 
             size={32} 
             onClick={getNextPage}
@@ -101,17 +126,7 @@ export default function Leaderboard({leaderboardData, setLeaderboardData, collec
         <span className={styles.scoresHeading}>Time</span>
 
         {
-          leaderboardData.map((userData) => {
-            return <Fragment key={userData.id}>
-                    <span 
-                      className={classNames(styles.textOverflowEllipsis)}
-                    >
-                      {userData.data().name}
-                    </span>
-                    <span>{userData.data().score}</span>
-                    <span>{userData.data().time}</span>
-                  </Fragment>
-          })
+          getScoreElements()
         }
       </div>
     </section>

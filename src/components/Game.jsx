@@ -13,19 +13,19 @@ import {
   onSnapshot,
   getDocs,
   limit,
-  startAfter
 } from 'firebase/firestore'
 import useCountdown from '../hooks/useCountdown'
 
-const num_photos = 8;
+const NUM_PHOTOS = 8;
+const TIME_LIMIT = 10;
 
 export default function Game({isLandscape}) {
-  const [pauseCountdown, startCountdown, time, resetCountdown] = useCountdown(1);
+  const [pauseCountdown, startCountdown, time, resetCountdown] = useCountdown(TIME_LIMIT);
 
   const [isStarted, setIsStarted] = useState(false);
   const [gameState, setGameState] = useState('Ready');
   const [gameData, setGameData] = useState(null);
-  const [puzzles, setPuzzles] = useState(new Array(num_photos).fill(0).map((elt, index) => index + 1));
+  const [puzzles, setPuzzles] = useState(new Array(NUM_PHOTOS).fill(0).map((elt, index) => index + 1));
   const [score, setScore] = useState(0);
   const [totalTimeElapsed, setTotalTimeElapsed] = useState(0);
   const initialRender = useRef(true);     // This fixes the weird double render bug in strict mode
@@ -98,7 +98,7 @@ export default function Game({isLandscape}) {
   }
 
   const resetGameData = () => {
-    setPuzzles(new Array(num_photos).fill(0).map((elt, index) => index + 1));
+    setPuzzles(new Array(NUM_PHOTOS).fill(0).map((elt, index) => index + 1));
     setScore(0);
     resetCountdown();
     setTotalTimeElapsed(0);
@@ -126,7 +126,7 @@ export default function Game({isLandscape}) {
   useEffect(() => {
     if (time <= 0)
     {
-      setTotalTimeElapsed((prev) => prev + (60 - time))
+      setTotalTimeElapsed((prev) => prev + (TIME_LIMIT - time))
       setIsStarted(false);
       setGameState('GameOver');
     }
