@@ -1,5 +1,5 @@
 const config = {
-  apiKey: import.meta.env.VITE_apiKey,
+  apiKey: import.meta.env.production.VITE_apiKey,
   authDomain: "waldogame-dda5b.firebaseapp.com",
   projectId: "waldogame-dda5b",
   storageBucket: "waldogame-dda5b.appspot.com",
