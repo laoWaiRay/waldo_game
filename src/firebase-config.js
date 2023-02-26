@@ -10,15 +10,16 @@ const config = {
 };
 
 export function getFirebaseConfig() {
-  if (!config.apiKey)
-    console.log('no api key');
-  if (!config)
-    console.log('no config');
+  // if (!config.apiKey)
+  //   console.log('no api key');
+  // if (!config)
+  //   console.log('no config');
 
-  if (!config || !config.apiKey) {
-    throw new Error('No Firebase configuration object provided.' + '\n' +
-    'Add your web app\'s configuration object to firebase-config.js');
-  } else {
-    return config;
-  }
+  // if (!config || !config.apiKey) {
+  //   throw new Error('No Firebase configuration object provided.' + '\n' +
+  //   'Add your web app\'s configuration object to firebase-config.js');
+  // } else {
+  //   return config;
+  // }
+  return config;
 }
