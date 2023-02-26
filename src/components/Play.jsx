@@ -17,10 +17,7 @@ export default function Play({setGameState, gameData, setScore, getGameData,
   const isValidSolution = (playerX, playerY, solutionX, solutionY) => {
     const dx = Math.abs(playerX - solutionX);
     const dy = Math.abs(playerY - solutionY);
-    console.log(dx, dy)
-    resetCountdown();
-    setTotalTimeElapsed((prev) => prev + (60 - time))
-
+    // console.log(dx, dy)
     if (dx < 4 && dy < 4)
     // if (true) // testing only
       return true;
@@ -43,6 +40,8 @@ export default function Play({setGameState, gameData, setScore, getGameData,
 
     if (isValidSolution(x, y, gameData.x, gameData.y)) {
       audio.play();
+      resetCountdown();
+      setTotalTimeElapsed((prev) => prev + (60 - time))
       setGameState('Ready');
       setScore((prev) => prev + 1);
       getGameData();
