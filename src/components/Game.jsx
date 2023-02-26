@@ -17,7 +17,7 @@ import {
 import useCountdown from '../hooks/useCountdown'
 
 const NUM_PHOTOS = 8;
-const TIME_LIMIT = 10;
+const TIME_LIMIT = 60;
 
 export default function Game({isLandscape}) {
   const [pauseCountdown, startCountdown, time, resetCountdown] = useCountdown(TIME_LIMIT);

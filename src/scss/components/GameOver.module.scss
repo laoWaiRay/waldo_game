@@ -58,8 +58,19 @@
   color: darkred;
 }
 
+.btnNav {
+  color: blue
+}
+
 @media screen and (min-width: 768px) {
   .gameOverGrid {
     padding: 0 8rem;
+  }
+}
+
+@media (hover: hover) {
+  .btn:hover {
+    color: $colorAccentBase;
+    border-color: $colorAccentDark;
   }
 }

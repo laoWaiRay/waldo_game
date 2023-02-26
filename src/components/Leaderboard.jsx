@@ -24,6 +24,8 @@ export default function Leaderboard({leaderboardData, setLeaderboardData, collec
   const [queryCursorHistory, setQueryCursorHistory] = useState([initialCursor]);
   const [prevDisabled, setPrevDisabled] = useState(true);
   const [nextDisabled, setNextDisabled] = useState(false);
+  const [prevHovered, setPrevHovered] = useState(false);
+  const [nextHovered, setNextHovered] = useState(false);
 
   const getNextPage = async () => {
     const documentSnapshots = await getDocs(queryCursorHistory[queryCursorHistory.length - 1]);
@@ -111,16 +113,23 @@ export default function Leaderboard({leaderboardData, setLeaderboardData, collec
             size={32} 
             onClick={getPreviousPage}
             className={prevDisabled ? styles.btnDisabled : ''}
+            color={(prevHovered && !prevDisabled) ? '#a30000' : '#bbbbbb'}
+            onMouseEnter={() => setPrevHovered(true)}
+            onMouseLeave={() => setPrevHovered(false)}
           />
           {page} / {Math.ceil(collectionLength / PAGINATION_LIMIT)}
           <ArrowCircleRight 
             size={32} 
             onClick={getNextPage}
-            className={nextDisabled ? styles.btnDisabled : ''}  
+            className={nextDisabled ? styles.btnDisabled : ''}
+            color={(nextHovered && !nextDisabled) ? '#a30000' : '#bbbbbb'}
+            onMouseEnter={() => setNextHovered(true)}
+            onMouseLeave={() => setNextHovered(false)}
           />
         </div>
       </div>
       <div className={classNames(styles.scoresGrid)}>
+        {/* Table Headings */}
         <span className={styles.scoresHeading}>Name</span>
         <span className={styles.scoresHeading}>Score</span>
         <span className={styles.scoresHeading}>Time</span>
