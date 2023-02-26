@@ -25,7 +25,7 @@ function App() {
         // setTimeout fixes a bug on chrome where it takes time to calculate window.innerHeight on phone rotation
         setTimeout(() => {
           calculateVH();
-        }, 100);
+        }, 250);
       })
     } else {
       setIsMobile(false);

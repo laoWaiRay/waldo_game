@@ -42,6 +42,6 @@
   font-family: 'Open Sans', sans-serif;
   color: #000;
   width: clamp(80px, 35vw, 15rem);
-  background-color: rgba($colorPrimary, 90%);
+  background-color: $colorPrimary;
   border-radius: 500px; // pill shape
 }
